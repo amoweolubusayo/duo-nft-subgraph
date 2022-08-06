@@ -1,0 +1,44 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Starlink
+    network: mainnet
+    source:
+      address: "0x27cC171B16FdD2224E1f93eD7DccFcc6790cA4BF"
+      abi: Starlink
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - BaseURIUpdated
+        - ExtensionUpdated
+        - OwnershipTransferred
+        - Revealed
+        - Transfer
+        - Unrevealed
+      abis:
+        - name: Starlink
+          file: ./abis/Starlink.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: BaseURIUpdated(string)
+          handler: handleBaseURIUpdated
+        - event: ExtensionUpdated(string)
+          handler: handleExtensionUpdated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Revealed(string)
+          handler: handleRevealed
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Unrevealed()
+          handler: handleUnrevealed
+      file: ./src/starlink.ts
