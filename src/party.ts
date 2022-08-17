@@ -1,20 +1,18 @@
 import { Address } from "@graphprotocol/graph-ts";
-import { Transfer } from "../generated/Starlink/Starlink";
+import { Transfer } from "../generated/Party/Party";
 import { Collectible } from "../generated/schema";
 import {
   getOrCreateAccount,
   getOrCreateCollectible,
   getOrCreateCollection,
-} from "./helper/starlink-helper";
+} from "./helper/party-helper";
 
 export function handleTransfer(event: Transfer): void {
   let collection = getOrCreateCollection(event.address);
   let receiver = getOrCreateAccount(event.params.to);
   if (
     event.params.from ==
-    Address.fromString(
-      "0x000000000000000000000000c8a6f408146260e6cc8e5e9919f4ca211d277400"
-    )
+    Address.fromString("0x747dbfbcfb74fd5fc115896c758a2fdff581c702")
   ) {
     // THIS IS A MINT
     getOrCreateCollectible(

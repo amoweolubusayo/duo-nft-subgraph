@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Starlink
@@ -24,11 +24,11 @@ dataSources:
         - Unrevealed
       abis:
         - name: Starlink
-          file: ./abis/Starlink.json
+          file: Starlink/abis/Starlink.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/starlink.ts
+      file: Starlink/Starlink.wasm
   - kind: ethereum
     name: Party
     network: mainnet
@@ -49,8 +49,8 @@ dataSources:
         - Transfer
       abis:
         - name: Party
-          file: ./abis/Party.json
+          file: Party/abis/Party.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/party.ts
+      file: Party/Party.wasm
