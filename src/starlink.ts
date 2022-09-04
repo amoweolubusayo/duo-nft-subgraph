@@ -12,9 +12,7 @@ export function handleTransfer(event: Transfer): void {
   let receiver = getOrCreateAccount(event.params.to);
   if (
     event.params.from ==
-    Address.fromString(
-      "0x000000000000000000000000c8a6f408146260e6cc8e5e9919f4ca211d277400"
-    )
+    Address.fromString("0x915164ca3621c13be63450f9ec60c5813a790dda")
   ) {
     // THIS IS A MINT
     getOrCreateCollectible(
@@ -33,7 +31,7 @@ export function handleTransfer(event: Transfer): void {
     if (collectible) {
       if (
         event.params.to ==
-        Address.fromString("0x0000000000000000000000000000000000000000")
+        Address.fromString("0xb966dd516fd37b0bf5cb4931450671b92c962007")
       ) {
         let sender = getOrCreateAccount(event.params.from);
         collectible.owner = sender.id;

@@ -3,13 +3,13 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "_pendingURI",
+        "name": "name",
         "type": "string"
       },
       {
-        "internalType": "uint256",
-        "name": "_mintStartTime",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "symbol",
+        "type": "string"
       }
     ],
     "stateMutability": "nonpayable",
@@ -69,32 +69,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_newBaseURI",
-        "type": "string"
-      }
-    ],
-    "name": "BaseURIUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_newExtension",
-        "type": "string"
-      }
-    ],
-    "name": "ExtensionUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -114,13 +88,38 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_revealedURI",
-        "type": "string"
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_currentPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_timeElapsed",
+        "type": "uint256"
       }
     ],
-    "name": "Revealed",
+    "name": "PublicSalePaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_saleDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_saleStartTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "PublicSaleStart",
     "type": "event"
   },
   {
@@ -149,25 +148,52 @@
     "type": "event"
   },
   {
-    "anonymous": false,
     "inputs": [],
-    "name": "Unrevealed",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "addressCanMint",
+    "name": "DEGENERATES_END_PRICE",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_DEGENERATES_PER_TRANSACTION",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MAX_DEGENERATES_TO_MINT",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "NUM_RESERVED_NFTS",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
       }
     ],
     "stateMutability": "view",
@@ -212,7 +238,7 @@
   },
   {
     "inputs": [],
-    "name": "extension",
+    "name": "degeneratesProvenance",
     "outputs": [
       {
         "internalType": "string",
@@ -237,6 +263,58 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getMintPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getRemainingSaleTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalMinted",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "indexRightShift",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -268,7 +346,14 @@
   },
   {
     "inputs": [],
-    "name": "isRevealed",
+    "name": "lockContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "locked",
     "outputs": [
       {
         "internalType": "bool",
@@ -280,73 +365,16 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "maxMintAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "maxMintSupply",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "maxSupply",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_to",
-        "type": "address"
-      },
-      {
         "internalType": "uint256",
-        "name": "_mintAmount",
+        "name": "numDegeneratesToMint",
         "type": "uint256"
       }
     ],
-    "name": "mint",
+    "name": "mintDegenerates",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "mintStartTime",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -357,6 +385,19 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "numReservedDegeneratesMinted",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -396,12 +437,19 @@
   },
   {
     "inputs": [],
-    "name": "pendingURI",
+    "name": "pausePublicSale",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "provenanceLocked",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "bool",
         "name": "",
-        "type": "string"
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -409,9 +457,54 @@
   },
   {
     "inputs": [],
-    "name": "removeExtension",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "publicSaleActive",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "publicSaleDegenerateStartingPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "publicSaleDuration",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "publicSaleStartTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -424,27 +517,14 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_revealedURI",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "numDegeneratesToMint",
+        "type": "uint256"
       }
     ],
-    "name": "reveal",
+    "name": "reserve",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "revealedURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -520,7 +600,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "_newBaseURI",
+        "name": "uri",
         "type": "string"
       }
     ],
@@ -533,11 +613,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "_extension",
+        "name": "provenance",
         "type": "string"
       }
     ],
-    "name": "setExtension",
+    "name": "setProvenance",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -546,11 +626,16 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_mintStartTime",
+        "name": "saleDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "saleStartPrice",
         "type": "uint256"
       }
     ],
-    "name": "setMintStartTime",
+    "name": "startPublicSale",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -694,13 +779,6 @@
       }
     ],
     "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "unReveal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

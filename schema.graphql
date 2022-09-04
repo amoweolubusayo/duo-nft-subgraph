@@ -8,6 +8,7 @@ type Collection @entity {
   name: String
   symbol: String
   address: Bytes!
+  collectibles: [Collectible!] @derivedFrom(field: "collection")
 }
 
 type Collectible @entity {
@@ -18,7 +19,7 @@ type Collectible @entity {
   collection: Collection!
   descriptorUri: String!
   created: BigInt!
-  modified: BigInt!
+  modified: BigInt
 }
 
 type Ownership @entity {

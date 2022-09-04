@@ -1,5 +1,5 @@
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import { Party } from "../../generated/Party/Party";
+import { PartyDegenerates } from "../../generated/PartyDegenerates/PartyDegenerates";
 import { Account, Collectible, Collection } from "../../generated/schema";
 
 export function getOrCreateAccount(address: Address): Account {
@@ -22,7 +22,7 @@ export function getOrCreateCollection(address: Address): Collection {
     collection = new Collection(collectionId);
     collection.address = address;
 
-    let contract = Party.bind(address);
+    let contract = PartyDegenerates.bind(address);
     let nameResult = contract.try_name();
     if (!nameResult.reverted) {
       collection.name = nameResult.value;
@@ -56,7 +56,7 @@ export function getOrCreateCollectible(
     collectible.creator = creatorId;
     collectible.owner = creatorId;
     collectible.created = createdTimestamp;
-    collectible.descriptorUri = Party.bind(
+    collectible.descriptorUri = PartyDegenerates.bind(
       Address.fromBytes(collectionAddress)
     ).tokenURI(tokenId);
     collectible.save();

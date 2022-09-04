@@ -125,6 +125,23 @@ export class Collection extends Entity {
   set address(value: Bytes) {
     this.set("address", Value.fromBytes(value));
   }
+
+  get collectibles(): Array<string> | null {
+    let value = this.get("collectibles");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set collectibles(value: Array<string> | null) {
+    if (!value) {
+      this.unset("collectibles");
+    } else {
+      this.set("collectibles", Value.fromStringArray(<Array<string>>value));
+    }
+  }
 }
 
 export class Collectible extends Entity {
@@ -212,13 +229,21 @@ export class Collectible extends Entity {
     this.set("created", Value.fromBigInt(value));
   }
 
-  get modified(): BigInt {
+  get modified(): BigInt | null {
     let value = this.get("modified");
-    return value!.toBigInt();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set modified(value: BigInt) {
-    this.set("modified", Value.fromBigInt(value));
+  set modified(value: BigInt | null) {
+    if (!value) {
+      this.unset("modified");
+    } else {
+      this.set("modified", Value.fromBigInt(<BigInt>value));
+    }
   }
 }
 

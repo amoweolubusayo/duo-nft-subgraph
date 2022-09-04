@@ -30,12 +30,12 @@ dataSources:
           handler: handleTransfer
       file: Starlink/Starlink.wasm
   - kind: ethereum
-    name: Party
+    name: PartyDegenerates
     network: mainnet
     source:
       address: "0x4BE3223f8708Ca6b30D1E8b8926cF281EC83E770"
       startBlock: 15247010
-      abi: Party
+      abi: PartyDegenerates
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -48,9 +48,9 @@ dataSources:
         - PublicSaleStart
         - Transfer
       abis:
-        - name: Party
-          file: Party/abis/Party.json
+        - name: PartyDegenerates
+          file: PartyDegenerates/abis/PartyDegenerates.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: Party/Party.wasm
+      file: PartyDegenerates/PartyDegenerates.wasm

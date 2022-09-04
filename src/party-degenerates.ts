@@ -12,7 +12,7 @@ export function handleTransfer(event: Transfer): void {
   let receiver = getOrCreateAccount(event.params.to);
   if (
     event.params.from ==
-    Address.fromString("0x747dbfbcfb74fd5fc115896c758a2fdff581c702")
+    Address.fromString("0xaa7dad6b93f50629f3938294f46aba53e6993dc3")
   ) {
     // THIS IS A MINT
     getOrCreateCollectible(
